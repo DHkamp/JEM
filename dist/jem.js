@@ -60,14 +60,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	
-	var _event = __webpack_require__(1);
+	var _eventManager = __webpack_require__(1);
 	
 	var jem = {
 	  greet: function greet() {
 	    return 'hello';
 	  },
 	  test: function test() {
-	    var e = _event.Event.Create('testName', console.log, console.warn);
+	    var e = Event.Create('testName', console.log, console.warn);
 	  }
 	};
 	
@@ -87,30 +87,120 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var Event = function () {
-	    function Event(eventName) {
-	        _classCallCheck(this, Event);
+	var EventManager = function () {
+	    function EventManager() {
+	        _classCallCheck(this, EventManager);
 	
-	        this.eventName = eventName;
-	
-	        for (var _len = arguments.length, fn = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	            fn[_key - 1] = arguments[_key];
-	        }
-	
-	        this.fn = [fn];
+	        this._events = {};
 	    }
+	    /**
+	     * Bounds provided functions to an event and triggers those on call. They'll be removed after the first call.
+	     * @param  {string} eventName - Unique identifier for an event.
+	     * @param  {Function[]} ...fn - Array of functions to be triggered.
+	     */
 	
-	    _createClass(Event, null, [{
-	        key: "Create",
-	        value: function Create(eventName, fn) {
-	            return new Event(eventName, fn);
+	
+	    _createClass(EventManager, [{
+	        key: "Once",
+	        value: function Once(eventName) {
+	            var evts = [];
+	            var events = this._events[eventName];
+	
+	            for (var _len = arguments.length, fn = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	                fn[_key - 1] = arguments[_key];
+	            }
+	
+	            fn.forEach(function (f) {
+	                evts.push(function (args) {
+	                    f(args);
+	                    this.Dispatch(eventName, f);
+	                });
+	            });
+	            this._events[eventName] = events ? events.concat(evts) : evts;
+	        }
+	        /**
+	         * Calls all functions bound to the specified event.
+	         * @param  {string} eventName - Unique identifier for the event to be called.
+	         * @param  {Function[]} ...args - Array of functions to be triggered.
+	         */
+	
+	    }, {
+	        key: "Emit",
+	        value: function Emit(eventName) {
+	            for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+	                args[_key2 - 1] = arguments[_key2];
+	            }
+	
+	            var events = this._events[eventName];
+	            if (events) {
+	                events.forEach(function (e) {
+	                    return e(args);
+	                });
+	            }
+	        }
+	        /**
+	         * Bounds provided functions to an event and triggers those on call.
+	         * @param  {string} eventName - Unique identifier for an event.
+	         * @param  {Function[]} ...args - Array of functions to be triggered.
+	         */
+	
+	    }, {
+	        key: "On",
+	        value: function On(eventName) {
+	            var evts = [];
+	            var events = this._events[eventName];
+	
+	            for (var _len3 = arguments.length, fn = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+	                fn[_key3 - 1] = arguments[_key3];
+	            }
+	
+	            fn.forEach(function (f) {
+	                return evts.push;
+	            });
+	            this._events[eventName] = events ? events.concat(evts) : evts;
+	        }
+	        /**
+	         * Removes provied listener from the given event.
+	         * @param  {string} eventName - Unique identifier for an event.
+	         * @param  {Function[]} ...fn - functions to remove.
+	         */
+	
+	    }, {
+	        key: "Dispatch",
+	        value: function Dispatch(eventName) {
+	            var events = this._events[eventName];
+	            if (events) {
+	                for (var _len4 = arguments.length, fn = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+	                    fn[_key4 - 1] = arguments[_key4];
+	                }
+	
+	                if (fn) {
+	                    fn.forEach(function (f, i) {
+	                        if (events.indexOf(f) > -1) {
+	                            events.splice(i, 1);
+	                        }
+	                    });
+	                    this._events[eventName] = events;
+	                } else {
+	                    delete this._events[eventName];
+	                }
+	            }
+	        }
+	        /**
+	         * Removes all listeners.
+	         */
+	
+	    }, {
+	        key: "Clear",
+	        value: function Clear() {
+	            this.events = {};
 	        }
 	    }]);
 	
-	    return Event;
+	    return EventManager;
 	}();
 	
-	exports.Event = Event;
+	exports.EventManager = EventManager;
 
 /***/ }
 /******/ ])

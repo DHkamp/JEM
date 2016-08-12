@@ -1,12 +1,15 @@
-import { Event } from './models/event.model';
+import { EventManager } from './components/eventManager.component';
 
-const jem = {
-  greet() {
-    return 'hello';
-  },
-  test() {
-    var e = Event.Create('testName', console.log, console.warn)
+const evtMgr = new EventManager();
+const jem    = {
+  Emit    : evtMgr.Emit,
+  On      : evtMgr.On,
+  Once    : evtMgr.Once,
+  Dispatch: evtMgr.Dispatch,
+  Clear   : evtMgr.Clear,
+  Isolate() {
+    return new EventManager();
   }
-};
+}
 
 export default jem;
