@@ -21,7 +21,9 @@ class EventManager {
     On(eventName, ...fn) {
         const evts   = [];
         const events = this._events[eventName];
-        fn.forEach(f => evts.push);
+
+        fn.forEach(f => evts.push(f));
+
         this._events[eventName] = events ? events.concat(evts) : evts; 
     }
     /**
@@ -65,7 +67,7 @@ class EventManager {
      * Removes all listeners.
      */
     Clear() {
-        this.events = {};
+        this._events = {};
     }
 }
 
