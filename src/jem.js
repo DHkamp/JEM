@@ -9,4 +9,5 @@ class Jem extends EventManager {
   }
 }
 
-export default new Jem();
+window.JEM = new Jem();
+// export default new Jem();

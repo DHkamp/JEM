@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+        <div>
+            <button id="clickCountIncr">ClickCount++</button>
+        </div>
+        <div>
+            Button has been clicked <span id="clickCount">0</span> times;
+        </div>
+
+        <script src="../dist/jem.min.js"></script>
+        <script>
+            (function() {
+                var clickCount = 0;
+                var btn = document.getElementById('clickCountIncr');
+                var txt = document.getElementById('clickCount');
+
+                btn.addEventListener('click', function() {
+                    JEM.Emit('incrCounter');
+                });
+
+                JEM.On('incrCounter', function() {
+                    txt.innerText = ++clickCount;
+                });
+            }());
+        </script>
+    </body>
+</html>
+
