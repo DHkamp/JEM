@@ -38,7 +38,6 @@ class EventManager {
             evts.push((args) => {
                 f(args);
                 this.Dispatch(eventName, f);
-                
             })
         });
         this._events[eventName] = events ? events.concat(evts) : evts; 
@@ -51,7 +50,7 @@ class EventManager {
     Dispatch(eventName, ...fn) {
         const events = this._events[eventName];
         if(events) {
-            if(fn) {
+            if(fn.length > 0) {
                 fn.forEach((f, i) => {
                     if (events.indexOf(f) > -1) {
                         events.splice(i, 1);

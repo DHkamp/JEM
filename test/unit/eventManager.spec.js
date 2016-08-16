@@ -74,12 +74,59 @@ describe('EventManager', () => {
             count += 1;
         }
 
+        function addTwo() {
+            count += 2;
+        }
+
         evtManager.On('testevent_dispatch', add);
+        evtManager.On('testevent_dispatch', addTwo);
         evtManager.Emit('testevent_dispatch');
         evtManager.Dispatch('testevent_dispatch', add);
         evtManager.Emit('testevent_dispatch');
 
-        expect(count).to.equal(1);
+        expect(count).to.equal(5);
+    });
+
+    it('should remove all listeners for a specified event', function() {
+        let count = 0;
+
+        function add() {
+            count += 1;
+        }
+
+        function addTwo() {
+            count += 2;
+        }
+
+        evtManager.On('testevent_dispatch_multi', add);
+        evtManager.On('testevent_dispatch_multi', addTwo);
+        evtManager.Emit('testevent_dispatch_multi');
+        evtManager.Dispatch('testevent_dispatch_multi');
+        evtManager.Emit('testevent_dispatch_multi');
+
+        expect(count).to.equal(3);
+    });
+
+    it('should remove all listeners', function() {
+        let count = 0;
+
+        function add() {
+            count += 1;
+        }
+
+        function addTwo() {
+            count += 2;
+        }
+
+        evtManager.On('testevent_dispatch_all', add);
+        evtManager.On('testevent_dispatch_all_two', addTwo);
+        evtManager.Emit('testevent_dispatch_all');
+        evtManager.Emit('testevent_dispatch_all_two');
+        evtManager.Clear();
+        evtManager.Emit('testevent_dispatch_all');
+        evtManager.Emit('testevent_dispatch_all_two');
+
+        expect(count).to.equal(3);
     });
 
     after(function() {
