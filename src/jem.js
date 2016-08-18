@@ -9,4 +9,4 @@ class Jem extends EventManager {
   }
 }
 
-window.JEM = new Jem();
+window.JEM = window.JEM || new Jem();

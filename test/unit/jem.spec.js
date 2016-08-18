@@ -1,4 +1,4 @@
-import jem from '../../src/JEM';
+import jem from '../../src/jem';
 
 describe('jem', () => {
     it('should create an isolted eventmanager scope', function() {
@@ -13,3 +13,4 @@ describe('jem', () => {
         expect(count).to.equal(2);
     });
 });
+
