@@ -10,7 +10,7 @@ class EventManager {
     Emit(eventName, ...args) {
         const events = this._events[eventName];
         if(events){
-            events.forEach(e => e(args));
+            events.forEach(e => e.apply(null, args));
         }
     }
     /**

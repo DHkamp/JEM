@@ -51,7 +51,7 @@ describe('EventManager', () => {
     it('should trigger listeners with arguments', function() {
         let count = 0;
 
-        evtManager.On('testevent_arguments', (args) => { count = args[0]; })
+        evtManager.On('testevent_arguments', (args) => { count = args; })
         evtManager.Emit('testevent_arguments', 8);
 
         expect(count).to.equal(8);
@@ -60,7 +60,7 @@ describe('EventManager', () => {
     it('should trigger listeners with arguments once', function() {
         let count = 0;
 
-        evtManager.Once('testevent_arguments_once', (args) => { count = args[0]; })
+        evtManager.Once('testevent_arguments_once', (args) => { count = args; })
         evtManager.Emit('testevent_arguments_once', 8);
         evtManager.Emit('testevent_arguments_once', 8);
 
