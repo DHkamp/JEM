@@ -14,6 +14,18 @@ all subscribers will be called.
 
 <hr />
 
+## Getting started
+
+### Installation
+
+```shell
+    npm i jemjs --save-dev
+```
+
+```javascript
+    import { JEM } from jemjs;
+```
+
 ## Reference 
 <br/>
 
