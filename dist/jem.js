@@ -129,7 +129,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var events = this._events[eventName];
 	            if (events) {
 	                events.forEach(function (e) {
-	                    return e(args);
+	                    return e.apply(null, args);
 	                });
 	            }
 	        }
