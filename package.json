@@ -2,7 +2,7 @@
   "name": "jemjs",
   "version": "1.0.0",
   "description": "Minimalistic JavaScript Event Manager",
-  "main": "dist/jem.js",
+  "main": "dist/jem.min.js",
   "scripts": {
     "test": "gulp",
     "lint": "gulp lint",
