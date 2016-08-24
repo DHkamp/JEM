@@ -1,6 +1,6 @@
 {
   "name": "jemjs",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Minimalistic JavaScript Event Manager",
   "main": "dist/jem.min.js",
   "scripts": {

@@ -9,5 +9,4 @@ class Jem extends EventManager {
   }
 }
 
-const JEM = new Jem();
-export { JEM };
+export let JEM = new Jem();
